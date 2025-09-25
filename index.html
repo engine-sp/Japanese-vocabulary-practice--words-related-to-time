@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日語詞彙練習－與時間相關的字詞</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
+
+    <div id="app" class="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl dark:bg-gray-800 transition-colors duration-300">
+        <h1 class="text-3xl font-bold text-center mb-6">日語詞彙練習－與時間相關的字詞</h1>
+        
+        <!-- 遊戲主畫面 -->
+        <div id="game-container" class="flex flex-col items-center">
+            
+            <!-- 難度選擇區塊 - 主介面 -->
+            <div id="difficulty-selection" class="flex flex-col items-center space-y-6 mb-8 w-full">
+                
+                <!-- 一週練習方式顯示 -->
+                <div class="flex justify-between items-center w-full max-w-sm border-b pb-4 border-gray-200 dark:border-gray-600">
+                    <span class="text-lg font-medium">關於「一周」練習方式：</span>
+                    <div class="flex items-center space-x-2">
+                        <span id="day-mode-display" class="font-semibold text-red-700 dark:text-red-300">日本模式</span>
+                        <button id="day-modify-btn" class="text-blue-600 font-bold hover:underline">修改</button>
+                    </div>
+                </div>
+
+                <!-- 分鐘練習方式顯示 -->
+                <div class="flex justify-between items-center w-full max-w-sm border-b pb-4 border-gray-200 dark:border-gray-600">
+                    <span class="text-lg font-medium">關於「分鐘」練習方式：</span>
+                    <div class="flex items-center space-x-2">
+                        <span id="minute-mode-display" class="font-semibold text-red-700 dark:text-red-300">常用</span>
+                        <button id="minute-modify-btn" class="text-blue-600 font-bold hover:underline">修改</button>
+                    </div>
+                </div>
+
+                <button id="start-btn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-green-700 transition-colors mt-6">開始作答</button>
+
+                <!-- 說明區塊 -->
+                <div class="w-full text-left mt-4">
+                    <h2 class="text-lg font-semibold mb-2">練習模式說明：</h2>
+                    <p class="mb-2">關於「一周」練習方式有以下選項</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 mb-4">
+                        <li><strong>不練習：</strong>題目不會包含「日曜日～土曜日」。</li>
+                        <li><strong>日本模式：</strong>題目會顯示「日曜日～土曜日」。</li>
+                        <li><strong>中文模式：</strong>題目會顯示「星期日～六」，但答案須用日文回答。</li>
+                    </ul>
+                    <p class="mb-2">關於「分鐘」練習方式有以下選項</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
+                        <li><strong>常用：</strong>「分鐘」出題範圍僅為「1分~10分」、「15分」與「30分」。</li>
+                        <li><strong>困難：</strong>「分鐘」出題範圍為「1分~59分」。</li>
+                    </ul>
+                </div>
+
+                <!-- 日語星期資訊表格 -->
+                <div class="w-full mt-8">
+                    <h2 class="text-xl font-bold mb-4 text-center">日語週一到週日</h2>
+                    <div class="overflow-x-auto rounded-lg shadow-md">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-200 dark:bg-gray-700">
+                                <tr>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">中文</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">日文漢字</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800">
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期日</td>
+                                    <td class="p-4">日曜日</td>
+                                    <td class="p-4">にちようび</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期一</td>
+                                    <td class="p-4">月曜日</td>
+                                    <td class="p-4">げつようび</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期二</td>
+                                    <td class="p-4">火曜日</td>
+                                    <td class="p-4">かようび</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期三</td>
+                                    <td class="p-4">水曜日</td>
+                                    <td class="p-4">すいようび</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期四</td>
+                                    <td class="p-4">木曜日</td>
+                                    <td class="p-4">もくようび</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期五</td>
+                                    <td class="p-4">金曜日</td>
+                                    <td class="p-4">きんようび</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">星期六</td>
+                                    <td class="p-4">土曜日</td>
+                                    <td class="p-4">どようび</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- 日語小時資訊表格 -->
+                <div class="w-full mt-8">
+                    <h2 class="text-xl font-bold mb-4 text-center">日語的「小時」</h2>
+                    <div class="overflow-x-auto rounded-lg shadow-md">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-200 dark:bg-gray-700">
+                                <tr>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">時的表示</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800">
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">1時</td><td class="p-4">いちじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">2時</td><td class="p-4">にじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">3時</td><td class="p-4">さんじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">4時</td><td class="p-4"><span class="text-red-600 dark:text-red-400 font-bold">よじ</span></td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">5時</td><td class="p-4">ごじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">6時</td><td class="p-4">ろくじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">7時</td><td class="p-4">しちじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">8時</td><td class="p-4">はちじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">9時</td><td class="p-4"><span class="text-red-600 dark:text-red-400 font-bold">くじ</span></td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">10時</td><td class="p-4">じゅうじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">11時</td><td class="p-4">じゅういちじ</td></tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">12時</td><td class="p-4">じゅうにじ</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 日語分鐘資訊表格 -->
+                <div class="w-full mt-8">
+                    <h2 class="text-xl font-bold mb-4 text-center">日語的「分鐘」</h2>
+                    <div class="overflow-x-auto rounded-lg shadow-md">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-gray-200 dark:bg-gray-700">
+                                <tr>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">分的表示</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">「分」沒有半濁音</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">數字有促音</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">其他</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800">
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">1分</td>
+                                    <td class="p-4">いっぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">2分</td>
+                                    <td class="p-4">にふん</td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">3分</td>
+                                    <td class="p-4">さんぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">4分</td>
+                                    <td class="p-4">よんぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">5分</td>
+                                    <td class="p-4">ごふん</td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">6分</td>
+                                    <td class="p-4">ろっぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">7分</td>
+                                    <td class="p-4">ななふん</td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">8分</td>
+                                    <td class="p-4">はっぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">9分</td>
+                                    <td class="p-4">きゅうふん</td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">10分</td>
+                                    <td class="p-4">じゅっぷん、<br>じっぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">15分</td>
+                                    <td class="p-4">じゅうごふん</td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4">常用字</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="p-4">30分<br>(或「半」)</td>
+                                    <td class="p-4">さんじゅっぷん、<br>さんじっぷん</td>
+                                    <td class="p-4"></td>
+                                    <td class="p-4">○</td>
+                                    <td class="p-4">常用字</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- 一周練習模式 - 隱藏的選項區塊 -->
+            <div id="day-mode-options" class="hidden flex flex-col items-center space-y-4 text-left w-full max-w-sm p-6 border rounded-lg shadow-inner bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
+                <h2 class="text-xl font-bold mb-2">關於『一周』練習方式</h2>
+                <div class="w-full space-y-4">
+                    <div class="flex items-center">
+                        <input type="radio" id="radio-no-day" name="day-mode" value="no-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                        <label for="radio-no-day" class="ml-2 text-md font-medium">不練習</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="radio-japanese-day" name="day-mode" value="japanese-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600" checked>
+                        <label for="radio-japanese-day" class="ml-2 text-md font-medium">日本模式</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="radio-chinese-day" name="day-mode" value="chinese-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                        <label for="radio-chinese-day" class="ml-2 text-md font-medium">中文模式</label>
+                    </div>
+                </div>
+                <button id="day-confirm-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-colors mt-4">確定</button>
+            </div>
+
+            <!-- 分鐘練習模式 - 隱藏的選項區塊 -->
+            <div id="minute-mode-options" class="hidden flex flex-col items-center space-y-4 text-left w-full max-w-sm p-6 border rounded-lg shadow-inner bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
+                <h2 class="text-xl font-bold mb-2">關於『分鐘』練習方式</h2>
+                <div class="w-full space-y-4">
+                    <div class="flex items-center">
+                        <input type="radio" id="radio-easy-minute" name="minute-mode" value="easy" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600" checked>
+                        <label for="radio-easy-minute" class="ml-2 text-md font-medium">常用</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="radio-hard-minute" name="minute-mode" value="hard" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                        <label for="radio-hard-minute" class="ml-2 text-md font-medium">困難</label>
+                    </div>
+                </div>
+                <button id="minute-confirm-btn" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow hover:bg-blue-700 transition-colors mt-4">確定</button>
+            </div>
+            
+            <!-- 題目區 -->
+            <div id="question-area" class="text-center mb-6 hidden">
+                <p id="question-progress" class="text-lg text-gray-600 dark:text-gray-400 mb-2"></p>
+                <p id="question-text" class="text-5xl font-extrabold text-blue-800 mb-4 dark:text-blue-300"></p>
+                <p id="feedback-text" class="text-2xl font-semibold mb-4 min-h-[1.5em]"></p>
+                <input type="text" id="user-input" placeholder="請輸入平假名" class="text-center p-3 text-2xl border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors w-full sm:w-80 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                <div class="flex space-x-4 justify-center mt-4">
+                    <button id="submit-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors">送出</button>
+                    <button id="abort-btn" class="bg-red-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-red-600 transition-colors">臨時終止</button>
+                </div>
+            </div>
+            
+            <!-- 結果區 -->
+            <div id="result-area" class="text-center hidden">
+                <p id="score-text" class="text-4xl font-bold text-green-600 dark:text-green-400 mb-4"></p>
+                <div id="review-table-container" class="w-full mt-8"></div>
+                <button id="restart-btn" class="bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-green-700 transition-colors mt-6">再練習一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        /**
+         * @fileoverview 日文時間練習的詞彙庫。
+         * 包含星期、小時和分鐘的日文寫法。
+         */
+
+        /**
+         * 詞彙庫物件，包含所有練習所需的平假名寫法。
+         * @type {{
+         * days: Array<{kanji: string, katakana: string, chinese: string}>,
+         * hours: {[key: number]: string},
+         * minutes: {[key: number]: string}
+         * }}
+         */
+        const japaneseVocabulary = {
+            /**
+             * 星期的詞彙，包含漢字、平假名和中文。
+             */
+            days: [
+                { kanji: '日曜日', katakana: 'にちようび', chinese: '星期日' },
+                { kanji: '月曜日', katakana: 'げつようび', chinese: '星期一' },
+                { kanji: '火曜日', katakana: 'かようび', chinese: '星期二' },
+                { kanji: '水曜日', katakana: 'すいようび', chinese: '星期三' },
+                { kanji: '木曜日', katakana: 'もくようび', chinese: '星期四' },
+                { kanji: '金曜日', katakana: 'きんようび', chinese: '星期五' },
+                { kanji: '土曜日', katakana: 'どようび', chinese: '星期六' },
+            ],
+
+            /**
+             * 小時的詞彙，數字對應平假名。
+             * 注意「4時 (よじ)」、「7時 (しちじ)」、「9時 (くじ)」的特殊念法。
+             */
+            hours: {
+                1: 'いちじ',
+                2: 'にじ',
+                3: 'さんじ',
+                4: 'よじ',
+                5: 'ごじ',
+                6: 'ろくじ',
+                7: 'しちじ',
+                8: 'はちじ',
+                9: 'くじ',
+                10: 'じゅうじ',
+                11: 'じゅういちじ',
+                12: 'じゅうにじ',
+            },
+
+            /**
+             * 分鐘的詞彙，數字對應平假名。
+             * 注意促音、半濁音與特殊念法（如1, 3, 6, 8, 10分）。
+             * 30分除了さんじゅっぷん/さんじっぷん，也可以是「はん」。
+             */
+            minutes: {
+                1: 'いっぷん',
+                2: 'にふん',
+                3: 'さんぷん',
+                4: 'よんぷん',
+                5: 'ごふん',
+                6: 'ろっぷん',
+                7: 'ななふん',
+                8: 'はっぷん',
+                9: 'きゅうふん',
+                10: 'じゅっぷん',
+                11: 'じゅういっぷん',
+                12: 'じゅうにふん',
+                13: 'じゅうさんぷん',
+                14: 'じゅうよんぷん',
+                15: 'じゅうごふん',
+                16: 'じゅうろっぷん',
+                17: 'じゅうななふん',
+                18: 'じゅうはっぷん',
+                19: 'じゅうきゅうふん',
+                20: 'にじゅっぷん',
+                21: 'にじゅういっぷん',
+                22: 'にじゅうにふん',
+                23: 'にじゅうさんぷん',
+                24: 'にじゅうよんぷん',
+                25: 'にじゅうごふん',
+                26: 'にじゅうろっぷん',
+                27: 'にじゅうななふん',
+                28: 'にじゅうはっぷん',
+                29: 'にじゅうきゅうふん',
+                30: 'さんじゅっぷん',
+                31: 'さんじゅういっぷん',
+                32: 'さんじゅうにふん',
+                33: 'さんじゅうさんぷん',
+                34: 'さんじゅうよんぷん',
+                35: 'さんじゅうごふん',
+                36: 'さんじゅうろっぷん',
+                37: 'さんじゅうななふん',
+                38: 'さんじゅうはっぷん',
+                39: 'さんじゅうきゅうふん',
+                40: 'よんじゅっぷん',
+                41: 'よんじゅういっぷん',
+                42: 'よんじゅうにふん',
+                43: 'よんじゅうさんぷん',
+                44: 'よんじゅうよんぷん',
+                45: 'よんじゅうごふん',
+                46: 'よんじゅうろっぷん',
+                47: 'よんじゅうななふん',
+                48: 'よんじゅうはっぷん',
+                49: 'よんじゅうきゅうふん',
+                50: 'ごじゅっぷん',
+                51: 'ごじゅういっぷん',
+                52: 'ごじゅうにふん',
+                53: 'ごじゅうさんぷん',
+                54: 'ごじゅうよんぷん',
+                55: 'ごじゅうごふん',
+                56: 'ごじゅうろっぷん',
+                57: 'ごじゅうななふん',
+                58: 'ごじゅうはっぷん',
+                59: 'ごじゅうきゅうふん'
+            },
+        };
+
+        // 引入 HTML 元素
+        const startBtn = document.getElementById('start-btn');
+        const difficultySelection = document.getElementById('difficulty-selection');
+        const dayModeDisplay = document.getElementById('day-mode-display');
+        const minuteModeDisplay = document.getElementById('minute-mode-display');
+        const dayModifyBtn = document.getElementById('day-modify-btn');
+        const minuteModifyBtn = document.getElementById('minute-modify-btn');
+        const dayModeOptions = document.getElementById('day-mode-options');
+        const minuteModeOptions = document.getElementById('minute-mode-options');
+        const dayConfirmBtn = document.getElementById('day-confirm-btn');
+        const minuteConfirmBtn = document.getElementById('minute-confirm-btn');
+
+        const questionArea = document.getElementById('question-area');
+        const feedbackText = document.getElementById('feedback-text');
+        const submitBtn = document.getElementById('submit-btn');
+        const abortBtn = document.getElementById('abort-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const questionText = document.getElementById('question-text');
+        const userInput = document.getElementById('user-input');
+        const scoreText = document.getElementById('score-text');
+        const resultArea = document.getElementById('result-area');
+        const reviewTableContainer = document.getElementById('review-table-container');
+        const questionProgress = document.getElementById('question-progress');
+
+        // 遊戲狀態變數
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let dayMode = 'japanese-day'; // 'no-day', 'japanese-day', 'chinese-day'
+        let minuteMode = 'easy'; // 'easy', 'hard'
+
+        const dayModeLabels = {
+            'no-day': '不練習',
+            'japanese-day': '日本模式',
+            'chinese-day': '中文模式'
+        };
+
+        const minuteModeLabels = {
+            'easy': '常用',
+            'hard': '困難'
+        };
+
+        /**
+         * 根據難度設定分鐘的詞彙庫。
+         * @returns {Object<string, string>}
+         */
+        function getMinutesVocabularyByDifficulty() {
+            if (minuteMode === 'easy') {
+                const easyMinutes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 30];
+                return Object.fromEntries(
+                    Object.entries(japaneseVocabulary.minutes).filter(([key, _]) => easyMinutes.includes(parseInt(key)))
+                );
+            }
+            return japaneseVocabulary.minutes;
+        }
+
+        /**
+         * 隨機產生一個指定範圍內的整數。
+         * @param {number} min - 最小值 (包含)。
+         * @param {number} max - 最大值 (包含)。
+         * @returns {number} 隨機整數。
+         */
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        /**
+         * 產生10個隨機問題。
+         */
+        function generateQuestions() {
+            questions = [];
+            const minutesVocab = getMinutesVocabularyByDifficulty();
+            const minutesKeys = Object.keys(minutesVocab).map(Number);
+            const useDays = (dayMode !== 'no-day');
+
+            for (let i = 0; i < 10; i++) {
+                let questionKanji = '';
+                let questionKatakana = '';
+                let displayKanji = '';
+                let randomDay = null;
+
+                if (useDays) {
+                    randomDay = japaneseVocabulary.days[getRandomInt(0, japaneseVocabulary.days.length - 1)];
+                    questionKanji = randomDay.kanji;
+                    questionKatakana = randomDay.katakana;
+                    displayKanji = (dayMode === 'chinese-day') ? randomDay.chinese : randomDay.kanji;
+                }
+                
+                const randomHour = getRandomInt(1, 12);
+                const randomMinute = minutesKeys[getRandomInt(0, minutesKeys.length - 1)];
+                
+                const question = {
+                    kanji: questionKanji,
+                    displayKanji: displayKanji,
+                    katakana: questionKatakana,
+                    hour: japaneseVocabulary.hours[randomHour],
+                    minute: minutesVocab[randomMinute],
+                    correctAnswers: [],
+                    userAnswer: '',
+                    isCorrect: false
+                };
+                
+                // 主要的答案
+                const primaryAnswer = `${questionKatakana}${japaneseVocabulary.hours[randomHour]}${minutesVocab[randomMinute]}`;
+                question.correctAnswers.push(primaryAnswer);
+
+                // 為10的倍數分鐘（10, 20, 30, 40, 50）添加「じっぷん」的答案
+                if (randomMinute > 0 && randomMinute % 10 === 0 && randomMinute < 60) {
+                    const jippunVariant = primaryAnswer.replace('じゅっぷん', 'じっぷん');
+                    question.correctAnswers.push(jippunVariant);
+                }
+
+                // 處理特殊情況：30分 除了さんじゅっぷん/さんじっぷん，還有「はん」
+                if (randomMinute === 30) {
+                    const hanAnswer = `${questionKatakana}${japaneseVocabulary.hours[randomHour]}はん`;
+                    if (!question.correctAnswers.includes(hanAnswer)) {
+                        question.correctAnswers.push(hanAnswer);
+                    }
+                }
+
+                question.fullKanji = `${useDays ? question.kanji : ''}${randomHour}時${randomMinute}分`;
+                question.fullDisplayKanji = `${useDays ? question.displayKanji : ''}${randomHour}時${randomMinute}分`;
+                
+                // 根據使用者要求，為「中文模式」建立特殊顯示格式
+                if (dayMode === 'chinese-day') {
+                    question.fullReviewKanji = `${randomDay.chinese}(${randomDay.kanji})${randomHour}時${randomMinute}分`;
+                } else {
+                    question.fullReviewKanji = question.fullKanji;
+                }
+
+
+                questions.push(question);
+            }
+        }
+
+        /**
+         * 顯示下一題。
+         */
+        function displayNextQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const question = questions[currentQuestionIndex];
+                questionText.textContent = question.fullDisplayKanji;
+                userInput.value = '';
+                feedbackText.textContent = '';
+                questionProgress.textContent = `第${currentQuestionIndex + 1}題 / 共${questions.length}題`;
+                
+                // 重新啟用輸入框和按鈕，並自動取得焦點
+                userInput.disabled = false;
+                submitBtn.disabled = false;
+                abortBtn.disabled = false;
+                userInput.focus();
+
+                // 確保題目區域可見
+                questionArea.classList.remove('hidden');
+            } else {
+                // 10題做完，顯示成績
+                showResults();
+            }
+        }
+
+        /**
+         * 檢查答案並更新分數。
+         */
+        function checkAnswer() {
+            // 修正：在比對前同時移除半形與全形空格
+            const userAnswer = userInput.value.replace(/[\s　]+/g, '').trim().toLowerCase();
+            const question = questions[currentQuestionIndex];
+            
+            const isCorrect = question.correctAnswers.some(ans => ans.toLowerCase() === userAnswer);
+            
+            question.userAnswer = userInput.value.trim(); // 儲存原始答案，包含空格
+            question.isCorrect = isCorrect;
+
+            if (isCorrect) {
+                score++;
+            }
+            
+            // 顯示反饋
+            const feedbackMsg = isCorrect ? '✔ 正確！' : `✖ 錯誤！正解：${question.correctAnswers.join(' 或 ')}`;
+            feedbackText.textContent = feedbackMsg;
+            feedbackText.className = `text-2xl font-semibold mb-4 ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`;
+            
+            // 暫時停用輸入框和按鈕
+            userInput.disabled = true;
+            submitBtn.disabled = true;
+            abortBtn.disabled = true;
+            
+            // 根據答案正確與否，調整延遲時間
+            const delay = isCorrect ? 500 : 1500;
+
+            // 短暫延遲後顯示下一題
+            setTimeout(() => {
+                currentQuestionIndex++;
+                displayNextQuestion();
+            }, delay);
+        }
+
+        /**
+         * 顯示最終結果。
+         */
+        function showResults() {
+            questionArea.classList.add('hidden');
+            resultArea.classList.remove('hidden');
+            scoreText.textContent = `您答對了 ${score} / ${questions.filter(q => q.userAnswer !== '').length} 題！`;
+            generateReviewTable();
+        }
+
+        /**
+         * 產生並顯示檢討表格。
+         */
+        function generateReviewTable() {
+            reviewTableContainer.innerHTML = ''; // 清空舊表格
+
+            const table = document.createElement('table');
+            table.className = 'w-full text-left border-collapse';
+
+            // 表格標頭
+            const thead = table.createTHead();
+            const headerRow = thead.insertRow();
+            ['題目', '您的答案', '是否正解', '正解'].forEach(text => {
+                const th = document.createElement('th');
+                th.textContent = text;
+                th.className = 'p-3 text-sm font-semibold text-gray-700 bg-gray-200 rounded-t-lg dark:bg-gray-700 dark:text-gray-300';
+                headerRow.appendChild(th);
+            });
+
+            // 表格內容
+            const tbody = table.createTBody();
+            questions.forEach(q => {
+                // 如果是臨時終止，只顯示已作答的題目
+                if (q.userAnswer === '' && abortBtn.disabled) return;
+
+                const row = tbody.insertRow();
+                const kanjiCell = row.insertCell();
+                kanjiCell.textContent = q.fullReviewKanji; // 使用新的顯示格式
+
+                const userAnswerCell = row.insertCell();
+                userAnswerCell.textContent = q.userAnswer || '未作答';
+                
+                const correctCell = row.insertCell();
+                if (q.isCorrect) {
+                    correctCell.innerHTML = '<span class="text-green-600 dark:text-green-400 font-bold">✔ 正確</span>';
+                } else {
+                    correctCell.innerHTML = '<span class="text-red-600 dark:text-red-400 font-bold">✖ 錯誤</span>';
+                }
+
+                const answerCell = row.insertCell();
+                if (!q.isCorrect) {
+                    answerCell.textContent = q.correctAnswers.join(' 或 ');
+                } else {
+                    answerCell.textContent = '-';
+                }
+
+                // 添加表格樣式
+                Array.from(row.cells).forEach(cell => {
+                    cell.className = 'p-3 border-b border-gray-200 dark:border-gray-700 text-sm';
+                });
+            });
+
+            reviewTableContainer.appendChild(table);
+        }
+        
+        /**
+         * 重置遊戲狀態並開始新一輪練習。
+         */
+        function resetGame() {
+            score = 0;
+            currentQuestionIndex = 0;
+            reviewTableContainer.innerHTML = '';
+            generateQuestions();
+            displayNextQuestion();
+        }
+
+        // --- 事件監聽器與互動邏輯 ---
+        
+        // 顯示「一周」模式選項
+        dayModifyBtn.addEventListener('click', () => {
+            difficultySelection.classList.add('hidden');
+            dayModeOptions.classList.remove('hidden');
+        });
+
+        // 顯示「分鐘」模式選項
+        minuteModifyBtn.addEventListener('click', () => {
+            difficultySelection.classList.add('hidden');
+            minuteModeOptions.classList.remove('hidden');
+        });
+
+        // 「一周」模式確定按鈕
+        dayConfirmBtn.addEventListener('click', () => {
+            const selectedRadio = document.querySelector('input[name="day-mode"]:checked');
+            if (selectedRadio) {
+                dayMode = selectedRadio.value;
+                dayModeDisplay.textContent = dayModeLabels[dayMode];
+            }
+            dayModeOptions.classList.add('hidden');
+            difficultySelection.classList.remove('hidden');
+        });
+
+        // 「分鐘」模式確定按鈕
+        minuteConfirmBtn.addEventListener('click', () => {
+            const selectedRadio = document.querySelector('input[name="minute-mode"]:checked');
+            if (selectedRadio) {
+                minuteMode = selectedRadio.value;
+                minuteModeDisplay.textContent = minuteModeLabels[minuteMode];
+            }
+            minuteModeOptions.classList.add('hidden');
+            difficultySelection.classList.remove('hidden');
+        });
+
+        // 開始作答按鈕
+        startBtn.addEventListener('click', () => {
+            difficultySelection.classList.add('hidden');
+            resetGame();
+        });
+        
+        submitBtn.addEventListener('click', checkAnswer);
+        
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        
+        restartBtn.addEventListener('click', () => {
+            resultArea.classList.add('hidden');
+            questionArea.classList.add('hidden');
+            difficultySelection.classList.remove('hidden');
+            questionProgress.textContent = '';
+        });
+
+        abortBtn.addEventListener('click', () => {
+            showResults();
+        });
+    </script>
+</body>
+</html>
