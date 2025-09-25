@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日語詞彙練習－與時間相關的字詞</title>
+    <title>日文時間練習</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
         }
+        .correct-char {
+            color: green;
+        }
+        .incorrect-char {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
 
     <div id="app" class="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl dark:bg-gray-800 transition-colors duration-300">
-        <h1 class="text-3xl font-bold text-center mb-6">日語詞彙練習－與時間相關的字詞</h1>
+        <h1 class="text-3xl font-bold text-center mb-6">日文時間練習</h1>
         
         <!-- 遊戲主畫面 -->
         <div id="game-container" class="flex flex-col items-center">
@@ -656,7 +663,12 @@
                 kanjiCell.textContent = q.fullReviewKanji; // 使用新的顯示格式
 
                 const userAnswerCell = row.insertCell();
-                userAnswerCell.textContent = q.userAnswer || '未作答';
+                if (q.isCorrect) {
+                    userAnswerCell.textContent = q.userAnswer;
+                } else {
+                    const primaryCorrectAnswer = q.correctAnswers[0];
+                    userAnswerCell.innerHTML = highlightDifferences(q.userAnswer, primaryCorrectAnswer);
+                }
                 
                 const correctCell = row.insertCell();
                 if (q.isCorrect) {
@@ -680,7 +692,31 @@
 
             reviewTableContainer.appendChild(table);
         }
-        
+
+        /**
+         * 比對使用者答案與正確答案，並用<span>標註差異。
+         * @param {string} userAns - 使用者的答案。
+         * @param {string} correctAns - 正確答案。
+         * @returns {string} 包含<span>標籤的HTML字串。
+         */
+        function highlightDifferences(userAns, correctAns) {
+            let highlightedHtml = '';
+            const maxLength = Math.max(userAns.length, correctAns.length);
+
+            for (let i = 0; i < maxLength; i++) {
+                const userChar = userAns[i] || '';
+                const correctChar = correctAns[i] || '';
+
+                if (userChar.toLowerCase() === correctChar.toLowerCase()) {
+                    highlightedHtml += `<span class="correct-char">${userChar}</span>`;
+                } else {
+                    highlightedHtml += `<span class="incorrect-char">${userChar}</span>`;
+                }
+            }
+
+            return highlightedHtml;
+        }
+
         /**
          * 重置遊戲狀態並開始新一輪練習。
          */
