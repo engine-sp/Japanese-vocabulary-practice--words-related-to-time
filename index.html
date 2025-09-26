@@ -17,6 +17,16 @@
             background-attachment: fixed,fixed;
             /*增加背景的呈現方式，請勿更動*/
         }
+        @media (orientation: landscape) {
+            body{
+                background-size:contain,contain;
+            }
+        }
+        @media (orientation: portrait) {
+            body{
+                background-size:cover,cover;
+            }
+        }
         .correct-char {
             color: green;
         }
