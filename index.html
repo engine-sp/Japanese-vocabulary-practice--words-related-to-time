@@ -9,6 +9,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            /*增加背景的呈現方式，請勿更動*/
+            background-image:linear-gradient(to bottom, rgba(120,197,223,1) 0%,rgba(120,197,223,1) 30%,rgba(120,197,223,0) 100%),url("https://gifdb.com/images/high/cherry-blossom-spring-floral-animation-7etpoy7u4paf97hx.webp");
+            background-size:contain,contain;
+            background-repeat:no-repeat,no-repeat;
+            background-position:top center,bottom center;
+            background-attachment: fixed,fixed;
+            /*增加背景的呈現方式，請勿更動*/
         }
         .correct-char {
             color: green;
@@ -49,9 +56,9 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
+<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800 transition-colors duration-300">
 
-    <div id="app" class="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl dark:bg-gray-800 transition-colors duration-300">
+    <div id="app" class="bg-white bg-opacity-50 rounded-xl shadow-lg p-8 w-full max-w-2xl transition-colors duration-300">
         <h1 class="text-3xl font-bold text-center mb-6">日語詞彙練習－與時間相關的字詞</h1>
         
         <!-- 遊戲主畫面 -->
@@ -61,19 +68,19 @@
             <div id="difficulty-selection" class="flex flex-col items-center space-y-6 mb-8 w-full">
                 
                 <!-- 一週練習方式顯示 -->
-                <div class="flex justify-between items-center w-full max-w-sm border-b pb-4 border-gray-200 dark:border-gray-600">
+                <div class="flex justify-between items-center w-full max-w-sm border-b pb-4 border-gray-200">
                     <span class="text-lg font-medium">關於「一周」練習方式：</span>
                     <div class="flex items-center space-x-2">
-                        <span id="day-mode-display" class="font-semibold text-red-700 dark:text-red-300">日本模式</span>
+                        <span id="day-mode-display" class="font-semibold text-red-700">日本模式</span>
                         <button id="day-modify-btn" class="text-blue-600 font-bold hover:underline">修改</button>
                     </div>
                 </div>
 
                 <!-- 分鐘練習方式顯示 -->
-                <div class="flex justify-between items-center w-full max-w-sm border-b pb-4 border-gray-200 dark:border-gray-600">
+                <div class="flex justify-between items-center w-full max-w-sm border-b pb-4 border-gray-200">
                     <span class="text-lg font-medium">關於「分鐘」練習方式：</span>
                     <div class="flex items-center space-x-2">
-                        <span id="minute-mode-display" class="font-semibold text-red-700 dark:text-red-300">常用</span>
+                        <span id="minute-mode-display" class="font-semibold text-red-700">常用</span>
                         <button id="minute-modify-btn" class="text-blue-600 font-bold hover:underline">修改</button>
                     </div>
                 </div>
@@ -84,13 +91,13 @@
                 <div class="w-full text-left mt-4">
                     <h2 class="text-lg font-semibold mb-2">練習模式說明：</h2>
                     <p class="mb-2">關於「一周」練習方式有以下選項</p>
-                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400 mb-4">
+                    <ul class="list-disc list-inside space-y-2 text-gray-600 mb-4">
                         <li><strong>不練習：</strong>題目不會包含「日曜日～土曜日」。</li>
-                        <li><strong>日本模式：</strong>題目會顯示「日曜日～土曜日」。</li>
+                        <li><strong>日本模式：：</strong>題目會顯示「日曜日～土曜日」。</li>
                         <li><strong>中文模式：</strong>題目會顯示「星期日～六」，但答案須用日文回答。</li>
                     </ul>
                     <p class="mb-2">關於「分鐘」練習方式有以下選項</p>
-                    <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400">
+                    <ul class="list-disc list-inside space-y-2 text-gray-600">
                         <li><strong>常用：</strong>「分鐘」出題範圍僅為「1分~10分」、「15分」與「30分」。</li>
                         <li><strong>困難：</strong>「分鐘」出題範圍為「1分~59分」。</li>
                     </ul>
@@ -101,45 +108,45 @@
                     <h2 class="text-xl font-bold mb-4 text-center">日語週一到週日</h2>
                     <div class="overflow-x-auto rounded-lg shadow-md">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-gray-200 dark:bg-gray-700">
+                            <thead class="bg-gray-200">
                                 <tr>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">中文</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">日文漢字</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">中文</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">日文漢字</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">平假名</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white dark:bg-gray-800">
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                            <tbody class="bg-white">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期日</td>
                                     <td class="p-4">日曜日</td>
                                     <td class="p-4">にちようび</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期一</td>
                                     <td class="p-4">月曜日</td>
                                     <td class="p-4">げつようび</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期二</td>
                                     <td class="p-4">火曜日</td>
                                     <td class="p-4">かようび</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期三</td>
                                     <td class="p-4">水曜日</td>
                                     <td class="p-4">すいようび</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期四</td>
                                     <td class="p-4">木曜日</td>
                                     <td class="p-4">もくようび</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期五</td>
                                     <td class="p-4">金曜日</td>
                                     <td class="p-4">きんようび</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">星期六</td>
                                     <td class="p-4">土曜日</td>
                                     <td class="p-4">どようび</td>
@@ -154,25 +161,25 @@
                     <h2 class="text-xl font-bold mb-4 text-center">日語的「小時」</h2>
                     <div class="overflow-x-auto rounded-lg shadow-md">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-gray-200 dark:bg-gray-700">
+                            <thead class="bg-gray-200">
                                 <tr>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">時的表示</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">時的表示</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">平假名</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white dark:bg-gray-800">
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">1時</td><td class="p-4">いちじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">2時</td><td class="p-4">にじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">3時</td><td class="p-4">さんじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">4時</td><td class="p-4"><span class="text-red-600 dark:text-red-400 font-bold">よじ</span></td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">5時</td><td class="p-4">ごじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">6時</td><td class="p-4">ろくじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">7時</td><td class="p-4">しちじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">8時</td><td class="p-4">はちじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">9時</td><td class="p-4"><span class="text-red-600 dark:text-red-400 font-bold">くじ</span></td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">10時</td><td class="p-4">じゅうじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">11時</td><td class="p-4">じゅういちじ</td></tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700"><td class="p-4">12時</td><td class="p-4">じゅうにじ</td></tr>
+                            <tbody class="bg-white">
+                                <tr class="border-b border-gray-200"><td class="p-4">1時</td><td class="p-4">いちじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">2時</td><td class="p-4">にじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">3時</td><td class="p-4">さんじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">4時</td><td class="p-4"><span class="text-red-600 font-bold">よじ</span></td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">5時</td><td class="p-4">ごじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">6時</td><td class="p-4">ろくじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">7時</td><td class="p-4">しちじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">8時</td><td class="p-4">はちじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">9時</td><td class="p-4"><span class="text-red-600 font-bold">くじ</span></td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">10時</td><td class="p-4">じゅうじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">11時</td><td class="p-4">じゅういちじ</td></tr>
+                                <tr class="border-b border-gray-200"><td class="p-4">12時</td><td class="p-4">じゅうにじ</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -183,72 +190,72 @@
                     <h2 class="text-xl font-bold mb-4 text-center">日語的「分鐘」</h2>
                     <div class="overflow-x-auto rounded-lg shadow-md">
                         <table class="w-full text-left border-collapse">
-                            <thead class="bg-gray-200 dark:bg-gray-700">
+                            <thead class="bg-gray-200">
                                 <tr>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">分的表示</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">註解</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">分的表示</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">平假名</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700">註解</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white dark:bg-gray-800">
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                            <tbody class="bg-white">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">1分</td>
-                                    <td class="p-4">い<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">い<span class="text-blue-600 font-bold">っ</span>ぷん</td>
                                     <td class="p-4">數字有促音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">2分</td>
-                                    <td class="p-4">に<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">に<span class="text-green-600 font-bold">ふ</span>ん</td>
                                     <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">3分</td>
                                     <td class="p-4">さんぷん</td>
                                     <td class="p-4"></td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">4分</td>
                                     <td class="p-4">よんぷん</td>
                                     <td class="p-4"></td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">5分</td>
-                                    <td class="p-4">ご<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">ご<span class="text-green-600 font-bold">ふ</span>ん</td>
                                     <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">6分</td>
-                                    <td class="p-4">ろ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">ろ<span class="text-blue-600 font-bold">っ</span>ぷん</td>
                                     <td class="p-4">數字有促音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">7分</td>
-                                    <td class="p-4">なな<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">なな<span class="text-green-600 font-bold">ふ</span>ん</td>
                                     <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">8分</td>
-                                    <td class="p-4">は<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">は<span class="text-blue-600 font-bold">っ</span>ぷん</td>
                                     <td class="p-4">數字有促音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">9分</td>
-                                    <td class="p-4">きゅう<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">きゅう<span class="text-green-600 font-bold">ふ</span>ん</td>
                                     <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">10分</td>
-                                    <td class="p-4">じゅ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん、<br>じ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">じゅ<span class="text-blue-600 font-bold">っ</span>ぷん、<br>じ<span class="text-blue-600 font-bold">っ</span>ぷん</td>
                                     <td class="p-4">數字有促音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">15分</td>
-                                    <td class="p-4">じゅうご<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">じゅうご<span class="text-green-600 font-bold">ふ</span>ん</td>
                                     <td class="p-4">常用字、「分」沒有半濁音</td>
                                 </tr>
-                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <tr class="border-b border-gray-200">
                                     <td class="p-4">30分<br>(或「半」)</td>
-                                    <td class="p-4">さんじゅ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん、<br>さんじ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん、<br>（はん）</td>
+                                    <td class="p-4">さんじゅ<span class="text-blue-600 font-bold">っ</span>ぷん、<br>さんじ<span class="text-blue-600 font-bold">っ</span>ぷん、<br>（はん）</td>
                                     <td class="p-4">常用字、數字有促音</td>
                                 </tr>
                             </tbody>
@@ -259,19 +266,19 @@
             </div>
 
             <!-- 一周練習模式 - 隱藏的選項區塊 -->
-            <div id="day-mode-options" class="hidden flex flex-col items-center space-y-4 text-left w-full max-w-sm p-6 border rounded-lg shadow-inner bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
+            <div id="day-mode-options" class="hidden flex flex-col items-center space-y-4 text-left w-full max-w-sm p-6 border rounded-lg shadow-inner bg-gray-50 border-gray-200">
                 <h2 class="text-xl font-bold mb-2">關於『一周』練習方式</h2>
                 <div class="w-full space-y-4">
                     <div class="flex items-center">
-                        <input type="radio" id="radio-no-day" name="day-mode" value="no-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                        <input type="radio" id="radio-no-day" name="day-mode" value="no-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         <label for="radio-no-day" class="ml-2 text-md font-medium">不練習</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="radio" id="radio-japanese-day" name="day-mode" value="japanese-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600" checked>
+                        <input type="radio" id="radio-japanese-day" name="day-mode" value="japanese-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" checked>
                         <label for="radio-japanese-day" class="ml-2 text-md font-medium">日本模式</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="radio" id="radio-chinese-day" name="day-mode" value="chinese-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                        <input type="radio" id="radio-chinese-day" name="day-mode" value="chinese-day" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         <label for="radio-chinese-day" class="ml-2 text-md font-medium">中文模式</label>
                     </div>
                 </div>
@@ -279,15 +286,15 @@
             </div>
 
             <!-- 分鐘練習模式 - 隱藏的選項區塊 -->
-            <div id="minute-mode-options" class="hidden flex flex-col items-center space-y-4 text-left w-full max-w-sm p-6 border rounded-lg shadow-inner bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
+            <div id="minute-mode-options" class="hidden flex flex-col items-center space-y-4 text-left w-full max-w-sm p-6 border rounded-lg shadow-inner bg-gray-50 border-gray-200">
                 <h2 class="text-xl font-bold mb-2">關於『分鐘』練習方式</h2>
                 <div class="w-full space-y-4">
                     <div class="flex items-center">
-                        <input type="radio" id="radio-easy-minute" name="minute-mode" value="easy" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600" checked>
+                        <input type="radio" id="radio-easy-minute" name="minute-mode" value="easy" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500" checked>
                         <label for="radio-easy-minute" class="ml-2 text-md font-medium">常用</label>
                     </div>
                     <div class="flex items-center">
-                        <input type="radio" id="radio-hard-minute" name="minute-mode" value="hard" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600">
+                        <input type="radio" id="radio-hard-minute" name="minute-mode" value="hard" class="h-5 w-5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
                         <label for="radio-hard-minute" class="ml-2 text-md font-medium">困難</label>
                     </div>
                 </div>
@@ -296,10 +303,10 @@
             
             <!-- 題目區 -->
             <div id="question-area" class="text-center mb-6 hidden">
-                <p id="question-progress" class="text-lg text-gray-600 dark:text-gray-400 mb-2"></p>
-                <p id="question-text" class="text-5xl font-extrabold text-blue-800 mb-4 dark:text-blue-300"></p>
+                <p id="question-progress" class="text-lg text-gray-600 mb-2"></p>
+                <p id="question-text" class="text-5xl font-extrabold text-blue-800 mb-4"></p>
                 <p id="feedback-text" class="text-2xl font-semibold mb-4 min-h-[1.5em]"></p>
-                <input type="text" id="user-input" placeholder="請輸入平假名" class="text-center p-3 text-2xl border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors w-full sm:w-80 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+                <input type="text" id="user-input" placeholder="請輸入平假名" class="text-center p-3 text-2xl border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors w-full sm:w-80 bg-gray-50">
                 <div class="flex space-x-4 justify-center mt-4">
                     <button id="submit-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition-colors">送出</button>
                     <button id="abort-btn" class="bg-red-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-red-600 transition-colors">臨時終止</button>
@@ -308,7 +315,7 @@
             
             <!-- 結果區 -->
             <div id="result-area" class="text-center hidden">
-                <p id="score-text" class="text-4xl font-bold text-green-600 dark:text-green-400 mb-4"></p>
+                <p id="score-text" class="text-4xl font-bold text-green-600 mb-4"></p>
                 <div id="review-table-container" class="w-full mt-8 md:overflow-x-auto"></div>
                 <button id="restart-btn" class="bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-green-700 transition-colors mt-6">再練習一次</button>
             </div>
@@ -610,7 +617,7 @@
             // 顯示反饋
             const feedbackMsg = isCorrect ? '✔ 正確！' : `✖ 錯誤！正解：${question.correctAnswers.join(' 或 ')}`;
             feedbackText.textContent = feedbackMsg;
-            feedbackText.className = `text-2xl font-semibold mb-4 ${isCorrect ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`;
+            feedbackText.className = `text-2xl font-semibold mb-4 ${isCorrect ? 'text-green-600' : 'text-red-600'}`;
             
             // 暫時停用輸入框和按鈕
             userInput.disabled = true;
@@ -654,7 +661,7 @@
             headers.forEach(text => {
                 const th = document.createElement('th');
                 th.textContent = text;
-                th.className = 'p-3 text-sm font-semibold text-gray-700 bg-gray-200 rounded-t-lg dark:bg-gray-700 dark:text-gray-300';
+                th.className = 'p-3 text-sm font-semibold text-gray-700 bg-gray-200 rounded-t-lg';
                 headerRow.appendChild(th);
             });
 
@@ -669,14 +676,14 @@
                 const cellsData = [
                     q.fullReviewKanji,
                     q.isCorrect ? q.userAnswer : highlightDifferences(q.userAnswer, q.correctAnswers[0]),
-                    q.isCorrect ? '<span class="text-green-600 dark:text-green-400 font-bold">✔<span class="sr-only"> 正確</span></span>' : '<span class="text-red-600 dark:text-red-400 font-bold">✖<span class="sr-only"> 錯誤</span></span>',
+                    q.isCorrect ? '<span class="text-green-600 font-bold">✔<span class="sr-only"> 正確</span></span>' : '<span class="text-red-600 font-bold">✖<span class="sr-only"> 錯誤</span></span>',
                     q.isCorrect ? '-' : q.correctAnswers.join(' 或 ')
                 ];
 
                 cellsData.forEach((data, index) => {
                     const cell = row.insertCell();
                     cell.innerHTML = data;
-                    cell.className = 'p-3 border-b border-gray-200 dark:border-gray-700 text-sm';
+                    cell.className = 'p-3 border-b border-gray-200 text-sm';
                     cell.setAttribute('data-label', headers[index]);
                 });
             });
