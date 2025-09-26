@@ -17,6 +17,36 @@
             color: red;
             font-weight: bold;
         }
+
+        /* 針對行動裝置的表格優化 */
+        @media (max-width: 768px) {
+            .review-table thead {
+                display: none;
+            }
+            .review-table, .review-table tbody, .review-table tr, .review-table td {
+                display: block;
+                width: 100%;
+            }
+            .review-table tr {
+                margin-bottom: 1rem;
+                border-bottom: 2px solid #e5e7eb;
+                padding-bottom: 1rem;
+            }
+            .review-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                border: none;
+            }
+            .review-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 1rem;
+                width: calc(50% - 2rem);
+                font-weight: bold;
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
@@ -157,95 +187,69 @@
                                 <tr>
                                     <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">分的表示</th>
                                     <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">平假名</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">「分」沒有半濁音</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">數字有促音</th>
-                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">其他</th>
+                                    <th class="p-4 text-sm font-semibold text-gray-700 dark:text-gray-300">註解</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">1分</td>
-                                    <td class="p-4">いっぷん</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">い<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">數字有促音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">2分</td>
-                                    <td class="p-4">にふん</td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">に<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">3分</td>
                                     <td class="p-4">さんぷん</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4"></td>
                                     <td class="p-4"></td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">4分</td>
                                     <td class="p-4">よんぷん</td>
                                     <td class="p-4"></td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4"></td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">5分</td>
-                                    <td class="p-4">ごふん</td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">ご<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">6分</td>
-                                    <td class="p-4">ろっぷん</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">ろ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">數字有促音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">7分</td>
-                                    <td class="p-4">ななふん</td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">なな<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">8分</td>
-                                    <td class="p-4">はっぷん</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">は<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">數字有促音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">9分</td>
-                                    <td class="p-4">きゅうふん</td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">きゅう<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">「分」沒有半濁音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">10分</td>
-                                    <td class="p-4">じゅっぷん、<br>じっぷん</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
+                                    <td class="p-4">じゅ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん、<br>じ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん</td>
+                                    <td class="p-4">數字有促音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">15分</td>
-                                    <td class="p-4">じゅうごふん</td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4">常用字</td>
+                                    <td class="p-4">じゅうご<span class="text-green-600 dark:text-green-400 font-bold">ふ</span>ん</td>
+                                    <td class="p-4">常用字、「分」沒有半濁音</td>
                                 </tr>
                                 <tr class="border-b border-gray-200 dark:border-gray-700">
                                     <td class="p-4">30分<br>(或「半」)</td>
-                                    <td class="p-4">さんじゅっぷん、<br>さんじっぷん</td>
-                                    <td class="p-4"></td>
-                                    <td class="p-4">○</td>
-                                    <td class="p-4">常用字</td>
+                                    <td class="p-4">さんじゅ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん、<br>さんじ<span class="text-blue-600 dark:text-blue-400 font-bold">っ</span>ぷん、<br>（はん）</td>
+                                    <td class="p-4">常用字、數字有促音</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -305,7 +309,7 @@
             <!-- 結果區 -->
             <div id="result-area" class="text-center hidden">
                 <p id="score-text" class="text-4xl font-bold text-green-600 dark:text-green-400 mb-4"></p>
-                <div id="review-table-container" class="w-full mt-8"></div>
+                <div id="review-table-container" class="w-full mt-8 md:overflow-x-auto"></div>
                 <button id="restart-btn" class="bg-green-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-green-700 transition-colors mt-6">再練習一次</button>
             </div>
         </div>
@@ -388,7 +392,7 @@
                 22: 'にじゅうにふん',
                 23: 'にじゅうさんぷん',
                 24: 'にじゅうよんぷん',
-                25: 'にじゅうごふん',
+                25: 'niじゅうごふん',
                 26: 'にじゅうろっぷん',
                 27: 'にじゅうななふん',
                 28: 'にじゅうはっぷん',
@@ -640,12 +644,14 @@
             reviewTableContainer.innerHTML = ''; // 清空舊表格
 
             const table = document.createElement('table');
-            table.className = 'w-full text-left border-collapse';
+            table.className = 'w-full text-left border-collapse review-table';
 
+            const headers = ['題目', '您的答案', '正解？', '說明'];
+            
             // 表格標頭
             const thead = table.createTHead();
             const headerRow = thead.insertRow();
-            ['題目', '您的答案', '是否正解', '正解'].forEach(text => {
+            headers.forEach(text => {
                 const th = document.createElement('th');
                 th.textContent = text;
                 th.className = 'p-3 text-sm font-semibold text-gray-700 bg-gray-200 rounded-t-lg dark:bg-gray-700 dark:text-gray-300';
@@ -659,34 +665,19 @@
                 if (q.userAnswer === '' && abortBtn.disabled) return;
 
                 const row = tbody.insertRow();
-                const kanjiCell = row.insertCell();
-                kanjiCell.textContent = q.fullReviewKanji; // 使用新的顯示格式
-
-                const userAnswerCell = row.insertCell();
-                if (q.isCorrect) {
-                    userAnswerCell.textContent = q.userAnswer;
-                } else {
-                    const primaryCorrectAnswer = q.correctAnswers[0];
-                    userAnswerCell.innerHTML = highlightDifferences(q.userAnswer, primaryCorrectAnswer);
-                }
                 
-                const correctCell = row.insertCell();
-                if (q.isCorrect) {
-                    correctCell.innerHTML = '<span class="text-green-600 dark:text-green-400 font-bold">✔ 正確</span>';
-                } else {
-                    correctCell.innerHTML = '<span class="text-red-600 dark:text-red-400 font-bold">✖ 錯誤</span>';
-                }
+                const cellsData = [
+                    q.fullReviewKanji,
+                    q.isCorrect ? q.userAnswer : highlightDifferences(q.userAnswer, q.correctAnswers[0]),
+                    q.isCorrect ? '<span class="text-green-600 dark:text-green-400 font-bold">✔<span class="sr-only"> 正確</span></span>' : '<span class="text-red-600 dark:text-red-400 font-bold">✖<span class="sr-only"> 錯誤</span></span>',
+                    q.isCorrect ? '-' : q.correctAnswers.join(' 或 ')
+                ];
 
-                const answerCell = row.insertCell();
-                if (!q.isCorrect) {
-                    answerCell.textContent = q.correctAnswers.join(' 或 ');
-                } else {
-                    answerCell.textContent = '-';
-                }
-
-                // 添加表格樣式
-                Array.from(row.cells).forEach(cell => {
+                cellsData.forEach((data, index) => {
+                    const cell = row.insertCell();
+                    cell.innerHTML = data;
                     cell.className = 'p-3 border-b border-gray-200 dark:border-gray-700 text-sm';
+                    cell.setAttribute('data-label', headers[index]);
                 });
             });
 
